@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Employer;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -30,5 +31,11 @@ class UserSeeder extends Seeder
         ]);
 
         $user->assignRole('user');
+
+        User::factory()->times(20)->create()->each(function ($user) {
+            Employer::factory()->create([
+                'user_id' => $user->id,
+            ]);
+        });
     }
 }

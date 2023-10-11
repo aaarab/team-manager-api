@@ -17,19 +17,31 @@ trait HasModel {
     {
         static::created(function ($model) {
             $model->created_by = Auth::user() ? Auth::user()->id : null;
+            if (method_exists($model, 'bootCreated')) {
+                $model->bootCreated();
+            }
         });
 
         static::updating(function ($model) {
             $model->updated_by = Auth::user() ? Auth::user()->id : null;
+            if (method_exists($model, 'bootUpdating')) {
+                $model->bootUpdating();
+            }
         });
 
         static::saving(function ($model) {
             self::validate($model);
         });
 
-        static::deleting(function($model) {
+        static::deleting(function ($model) {
             if (method_exists($model, 'bootDeleting')) {
                 $model->bootDeleting();
+            }
+        });
+
+        static::updated(function ($model) {
+            if (method_exists($model, 'bootUpdated')) {
+                $model->bootUpdated();
             }
         });
     }

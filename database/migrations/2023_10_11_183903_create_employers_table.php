@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->unsignedInteger('account_id');
+            $table->unsignedInteger('user_id');
             $table->enum('status', ['draft', 'valid', 'cancelled']);
             $table->timestamps();
             $table->softDeletes();
@@ -24,6 +25,7 @@ return new class extends Migration
             $table->unsignedInteger('updated_by')->nullable();
 
             $table->foreign('account_id')->references('id')->on('accounts');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('created_by')->references('id')->on('users');
             $table->foreign('updated_by')->references('id')->on('users');
         });

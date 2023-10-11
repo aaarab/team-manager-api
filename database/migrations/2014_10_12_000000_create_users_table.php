@@ -19,12 +19,14 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
             $table->datetime('birthday')->nullable();
+            $table->unsignedInteger('account_id')->nullable();
             $table->unsignedInteger('created_by')->nullable();
             $table->unsignedInteger('updated_by')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
 
+            $table->foreign('account_id')->references('id')->on('accounts');
             $table->foreign('created_by')->references('id')->on('users');
             $table->foreign('updated_by')->references('id')->on('users');
         });

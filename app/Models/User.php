@@ -28,6 +28,7 @@ class User extends Authenticatable
         'phone',
         'birthday',
         'password',
+        'account_id',
     ];
 
     /**
@@ -56,7 +57,30 @@ class User extends Authenticatable
             'email' => 'bail|required|email|unique:users,email,' . $this->id,
             'password' => 'nullable|string|max:150|min:9',
             'phone' => 'nullable|string',
-            'birthday' => 'nullable|date'
+            'birthday' => 'nullable|date',
+            'account_id' => 'nullable|integer'
         ];
     }
+
+
+    public function bootCreated()
+    {
+        if(request()->has('roles') && !empty(request()->roles)) {
+            $this->assignRole(request()->roles);
+        }
+    }
+
+    public function bootUpdated()
+    {
+        if (
+            $this->original['created_at'] === $this->original['updated_at']
+            && $this->hasRole('user')
+        ) {
+            $employer = Employer::whereEmail($this->original['email'])->first();
+            $employer->status = 'valid';
+            $employer->save();
+            $this->givePermissionTo(['employers.index']);
+        }
+    }
+
 }

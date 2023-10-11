@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Account;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -18,10 +19,13 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $account = Account::inRandomOrder()->first();
+
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'password' => Hash::make("123456789"),
+            'password' => Hash::make('123456789'),
+            'account_id' => $account->id,
             'address' => fake()->address(),
             'phone' => fake()->phoneNumber(),
             'birthday' => fake()->dateTime(),

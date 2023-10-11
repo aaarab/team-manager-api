@@ -36,4 +36,9 @@ class Account extends Model
         return $this->hasMany(Employer::class);
     }
 
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
 }

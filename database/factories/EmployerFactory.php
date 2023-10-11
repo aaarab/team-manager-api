@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Account;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,11 +19,13 @@ class EmployerFactory extends Factory
     public function definition(): array
     {
         $account = Account::inRandomOrder()->first();
+        $user = User::whereNotIn('id', [1])->inRandomOrder()->first();
 
         return [
             'name' => fake()->name(),
             'email' => fake()->email(),
             'account_id' => $account->id,
+            'user_id' => $user->id,
             'status' => fake()->randomElement(['draft', 'valid', 'cancelled']),
         ];
     }
