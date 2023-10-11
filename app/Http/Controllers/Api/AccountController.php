@@ -12,4 +12,17 @@ class AccountController extends Controller
     use HasController;
 
     protected $model = Account::class;
+
+    public function destroy($id)
+    {
+        $account = Account::withCount('employers')->findOrFail($id);
+
+        if ($account->employers_count) {
+            return response()->json(['message' => 'you can not delete this account'], 400);
+        }
+
+        $account->delete();
+
+        return $account;
+    }
 }

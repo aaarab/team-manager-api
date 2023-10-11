@@ -18,7 +18,8 @@ trait HasController {
         $ability = $table . ".index";
         $this->authorize($ability, Auth::user());
 
-        $query = $this->model::relationships(request());
+        $query = $this->model::relationships(request())
+            ->count(request());
 
         if (request()->has('page')):
             $per_page = request()->per_page ?: 50;

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 
 trait HasModel {
     use HasRelationships;
+    use HasCount;
     use SoftDeletes;
 
     protected static function booted()
@@ -24,6 +25,12 @@ trait HasModel {
 
         static::saving(function ($model) {
             self::validate($model);
+        });
+
+        static::deleting(function($model) {
+            if (method_exists($model, 'bootDeleting')) {
+                $model->bootDeleting();
+            }
         });
     }
 
