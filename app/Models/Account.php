@@ -30,4 +30,9 @@ class Account extends Model
             'email' => 'required|string|unique:accounts,email,' . $this->id,
         ];
     }
+
+    public function employers()
+    {
+        return $this->hasMany(Employer::class);
+    }
 }
