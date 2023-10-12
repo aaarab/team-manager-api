@@ -70,17 +70,17 @@ class User extends Authenticatable
         }
     }
 
-    public function bootUpdated()
-    {
-        if (
-            $this->original['created_at'] === $this->original['updated_at']
-            && $this->hasRole('user')
-        ) {
-            $employer = Employer::whereEmail($this->original['email'])->first();
-            $employer->status = 'valid';
-            $employer->save();
-            $this->givePermissionTo(['employers.index']);
-        }
-    }
+//    public function bootUpdated()
+//    {
+//        if (
+//            $this->original['created_at'] === $this->original['updated_at']
+//            && $this->hasRole('user')
+//        ) {
+//            $employer = Employer::whereEmail($this->original['email'])->first();
+//            $employer->status = 'valid';
+//            $employer->save();
+//            $this->givePermissionTo(['employers.index']);
+//        }
+//    }
 
 }

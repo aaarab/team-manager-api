@@ -26,7 +26,11 @@ class EmployerController extends Controller
 
             // HINT: we create a user without assign Permissions To Him.
             $user = new User();
-            $password = Str::random(9);
+
+            $password =  env('APP_ENV') === 'production'
+                ? Str::random(9)
+                : '123456789';
+
             $user->fill([
                 'name' => $request->name,
                 'email' => $request->email,

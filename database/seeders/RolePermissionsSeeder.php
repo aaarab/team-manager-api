@@ -14,9 +14,10 @@ class RolePermissionsSeeder extends Seeder
     public function run(): void
     {
         $permissions = [
-            "users" => ["index", "show", "create", "update", "delete"],
+            "users" => ["index", "show", "create", "update", "delete", "profile"],
             "employers" => ["index", "show", "create", "update", "delete"],
             "account" => ["index", "show", "create", "update", "delete"],
+            "search" => ["index"],
         ];
 
         foreach ($permissions as $table => $actions) {
@@ -38,6 +39,6 @@ class RolePermissionsSeeder extends Seeder
             'name' => 'user',
         ]);
 
-        $userRole->givePermissionTo(['employers.index']);
+        $userRole->givePermissionTo(['users.profile']);
     }
 }
