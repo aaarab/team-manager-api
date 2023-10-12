@@ -13,7 +13,7 @@ class SearchController extends Controller
 {
     public function index()
     {
-        $ability = "search.create";
+        $ability = "search.index";
         $this->authorize($ability, Auth::user());
 
         $value = strtoupper(request()->value);
