@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Exceptions\InvalidDataException;
+use App\Models\EventLog;
 use Exception;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
@@ -15,10 +16,10 @@ trait HasModel {
 
     protected static function booted()
     {
-        static::created(function ($model) {
+        static::creating(function ($model) {
             $model->created_by = Auth::user() ? Auth::user()->id : null;
-            if (method_exists($model, 'bootCreated')) {
-                $model->bootCreated();
+            if (method_exists($model, 'bootCreating')) {
+                $model->bootCreating();
             }
         });
 
@@ -39,10 +40,23 @@ trait HasModel {
             }
         });
 
+        static::created(function ($model) {
+            if (method_exists($model, 'bootCreated')) {
+                $model->bootCreated();
+            }
+            self::log($model, 'create');
+        });
+
+
         static::updated(function ($model) {
             if (method_exists($model, 'bootUpdated')) {
                 $model->bootUpdated();
             }
+            self::log($model, 'update');
+        });
+
+        static::deleted(function ($model) {
+            self::log($model, 'delete');
         });
     }
 
@@ -57,5 +71,19 @@ trait HasModel {
         if ($validator->fails()) :
             throw (new InvalidDataException())->withErrors($validator->errors());
         endif;
+    }
+
+    private static function log($model, $action)
+    {
+        $event = [
+            "object_type" => $model->getTable(),
+            "object_id" => $model->id,
+            "action" => $action,
+            "attributes" => $model->attributes,
+            "original" => $model->original,
+            "changes" => $model->changes,
+        ];
+
+        EventLog::log($event);
     }
 }

@@ -13,22 +13,10 @@ class Employer extends Model
     use HasFactory;
     use HasModel;
 
-    protected static function booted(): void
+    protected static function boot(): void
     {
+        parent::boot();
         static::addGlobalScope(new EmployerScope());
-
-        static::updating(function ($model) {
-            if ($model->original['status'] === 'valid' && $model->status === 'cancelled') {
-                $model->status = 'valid';
-            }
-        });
-
-        static::updated(function ($model) {
-            if ($model->status === 'cancelled') {
-                $user = $model->user;
-                $user->delete();
-            }
-        });
     }
 
     /**
@@ -65,5 +53,21 @@ class Employer extends Model
     public function account(): BelongsTo
     {
         return $this->belongsTo(Account::class);
+    }
+
+    public function bootUpdating()
+    {
+        if ($this->original['status'] === 'valid' && $this->status === 'cancelled') {
+            $this->status = 'valid';
+        }
+    }
+
+    public function bootUpdated()
+    {
+        if ($this->status === 'cancelled') {
+            $user = $this->user;
+            $user->delete();
+        }
+
     }
 }
