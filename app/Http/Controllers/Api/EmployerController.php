@@ -40,6 +40,7 @@ class EmployerController extends Controller
             $input = $request->merge(['user_id' => $user->id]);
             $employer = $this->storeFromTrail($input);
 
+
             if (env('APP_ENV') === 'production') {
                 $details = [
                     'name' => $user->name,
