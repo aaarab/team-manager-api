@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class EmployerCreatedMail extends Mailable
+class UserRegisteredMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -32,10 +32,7 @@ class EmployerCreatedMail extends Mailable
     public function build()
     {
         return $this->from(env('MAIL_FROM_ADDRESS'), env('MAIL_USERNAME'))
-            ->subject('Tersea: Employer Created')
-            ->view('mail.employer-created');
+            ->subject('Tersea: New User Created.')
+            ->view('mail.user-created');
     }
-
-
-
 }

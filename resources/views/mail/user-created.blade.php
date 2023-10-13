@@ -9,7 +9,7 @@
     <span>Password: {{ $details['password'] }}</span>
     <br>
     <a href="{{ $details['url'] }}"
-       style="border-radius: 5px; color: #FFFFFF;background:#2DC854;color:#FFFFFF;padding:10px 20px;text-decoration:none;font-size:20px;">
+       style="margin-top: 2rem; border-radius: 5px; color: #FFFFFF;background:#2DC854;color:#FFFFFF;padding:10px 20px;text-decoration:none;font-size:20px;">
         Activate My Account
     </a>
 </p>

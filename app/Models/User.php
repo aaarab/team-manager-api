@@ -62,25 +62,4 @@ class User extends Authenticatable
         ];
     }
 
-
-    public function bootCreated()
-    {
-        if(request()->has('roles') && !empty(request()->roles)) {
-            $this->assignRole(request()->roles);
-        }
-    }
-
-//    public function bootUpdated()
-//    {
-//        if (
-//            $this->original['created_at'] === $this->original['updated_at']
-//            && $this->hasRole('user')
-//        ) {
-//            $employer = Employer::whereEmail($this->original['email'])->first();
-//            $employer->status = 'valid';
-//            $employer->save();
-//            $this->givePermissionTo(['employers.index']);
-//        }
-//    }
-
 }
