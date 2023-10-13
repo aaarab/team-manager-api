@@ -21,9 +21,9 @@ class EventLogController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $objectType = request()->object_type;
+        $object_type = request()->object_type;
         $object_id = request()->object_id;
-        $logs = EventLog::where(['object_type' => $objectType, 'object_id' => $object_id])->with('creator')->get();
+        $logs = EventLog::where(['object_type' => $object_type, 'object_id' => $object_id])->with('creator.roles')->get();
         return $logs;
     }
 }
