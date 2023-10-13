@@ -44,4 +44,14 @@ class AuthController extends Controller
 
         return response()->json(['message' => 'unable to logout']);
     }
+
+    public function verifyToken()
+    {
+        $user = Auth::user();
+
+        $user->roles;
+        $user->permissions;
+
+        return $user;
+    }
 }
