@@ -62,7 +62,7 @@ trait HasController {
         $ability = $table . ".show";
         $this->authorize($ability, Auth::user());
 
-        $model = $this->model::findOrFail($id);
+        $model = $this->model::relationShips(request())->findOrFail($id);
         return $model;
     }
 

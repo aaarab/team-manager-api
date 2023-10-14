@@ -41,7 +41,7 @@ class Employer extends Model
             'email' => 'bail|required|string|unique:employers,email,' . $this->id,
             'account_id' => 'required|integer',
             'user_id' => 'required|integer',
-            'status' => 'required|string|in:draft,valid,cancelled',
+            'status' => 'required|string|in:draft,valid,cancelled,confirmed',
         ];
     }
 

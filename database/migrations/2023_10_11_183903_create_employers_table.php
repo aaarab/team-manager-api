@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->unsignedInteger('account_id');
             $table->unsignedInteger('user_id');
-            $table->enum('status', ['draft', 'valid', 'cancelled']);
+            $table->enum('status', ['draft', 'valid', 'cancelled', 'confirmed']);
             $table->timestamps();
             $table->softDeletes();
 

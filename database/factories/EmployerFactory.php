@@ -26,7 +26,7 @@ class EmployerFactory extends Factory
             'email' => fake()->email(),
             'account_id' => $account->id,
             'user_id' => $user->id,
-            'status' => fake()->randomElement(['draft', 'valid', 'cancelled']),
+            'status' => fake()->randomElement(['draft', 'valid', 'cancelled', 'confirmed']),
         ];
     }
 }
