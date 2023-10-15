@@ -13,8 +13,6 @@ class EventLog extends Model
 
     public $timestamps = false ;
 
-    protected $appends = ['account'];
-
     protected $fillable = [
         'action',
         'attributes',
@@ -74,11 +72,5 @@ class EventLog extends Model
         }
 
         $event->save();
-    }
-
-    public function getAccountAttribute()
-    {
-        $account_id = json_decode($this->attributes['attributes'])->account_id;
-        return Account::find($account_id);
     }
 }
