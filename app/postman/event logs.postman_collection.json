@@ -1,0 +1,67 @@
+{
+	"info": {
+		"_postman_id": "ab53419c-be39-4823-8a8b-24903f34dce8",
+		"name": "event logs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20886689"
+	},
+	"item": [
+		{
+			"name": "index",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/event-log?object_type=employers&object_id=3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"event-log"
+					],
+					"query": [
+						{
+							"key": "object_type",
+							"value": "employers"
+						},
+						{
+							"key": "object_id",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

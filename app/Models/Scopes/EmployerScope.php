@@ -15,7 +15,7 @@ class EmployerScope implements Scope
     public function apply(Builder $builder, Model $model): void
     {
         $user = Auth::user();
-        if ($user->hasRole('user')) {
+        if ($user?->hasRole('user')) {
             $builder->whereAccountId($user->account_id);
         }
     }
