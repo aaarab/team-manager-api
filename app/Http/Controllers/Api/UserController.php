@@ -56,7 +56,7 @@ class UserController extends Controller
         $isFirstUpdate = strtotime($user->created_at) === strtotime($user->updated_at);
 
         if($request->has('password') && !empty($request->password)) {
-            $input->password = Hash::make($request->password);
+            $input['password'] = Hash::make($request->password);
         }
 
         $user->fill($input);
